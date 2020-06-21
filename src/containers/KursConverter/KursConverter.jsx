@@ -13,6 +13,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Tooltip,
 } from "@material-ui/core";
 
 class KursConverter extends Component {
@@ -84,7 +85,7 @@ class KursConverter extends Component {
             <div style={{ marginTop: "1.5em" }}>
               <TextField
                 id="kurs"
-                label="Kurs per Dollar"
+                label="IDR/USD Rates"
                 variant="outlined"
                 onChange={this.handleChange("kurs")}
                 error={isNaN(this.state.kurs)}
@@ -120,17 +121,22 @@ class KursConverter extends Component {
             </FormControl>
 
             <div style={{ marginTop: ".5em" }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={this.state.includeTax}
-                    onChange={this.includeTaxHandler}
-                    name="includeTax"
-                    color="primary"
-                  />
-                }
-                label="Include Upwork Tax"
-              />
+              <Tooltip
+                title="Upwork withdrawal tax for 0.99 USD per transaction"
+                placement="right"
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.includeTax}
+                      onChange={this.includeTaxHandler}
+                      name="includeTax"
+                      color="primary"
+                    />
+                  }
+                  label="Include Upwork Tax"
+                />
+              </Tooltip>
             </div>
 
             <Button
