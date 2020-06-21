@@ -61,7 +61,7 @@ class KursConverter extends Component {
         >
           <Paper style={{ padding: "1.5em" }}>
             <Typography style={{ paddingBottom: "1.5em" }}>
-              Kurs Calculator
+              Fixed Price Calculator
             </Typography>
             <div>
               <TextField
