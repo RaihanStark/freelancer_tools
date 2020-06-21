@@ -14,12 +14,13 @@ import {
   Tooltip,
 } from "@material-ui/core";
 
-class KursConverter extends Component {
+class HourConverter extends Component {
   state = {
     amount: 0,
     kurs: 13800,
     receive: 0,
     tax: 0,
+    total_hours: 0,
     includeTax: false,
   };
 
@@ -32,7 +33,7 @@ class KursConverter extends Component {
   };
 
   calculateHandler = () => {
-    let amount = this.state.amount;
+    let amount = this.state.amount * this.state.total_hours;
 
     // Calculate Tax Upwork
     if (this.state.includeTax) {
@@ -45,6 +46,7 @@ class KursConverter extends Component {
 
     // Calculate Kurs
     const total = afterTax * this.state.kurs;
+
     const total_converted = total.toLocaleString("en-US", {
       style: "currency",
       currency: "IDR",
@@ -56,7 +58,7 @@ class KursConverter extends Component {
     return (
       <Paper style={{ padding: "1.5em" }}>
         <Typography style={{ paddingBottom: "1.5em" }}>
-          Fixed Price Calculator
+          Hourly Price Calculator
         </Typography>
         <div>
           <TextField
@@ -71,7 +73,25 @@ class KursConverter extends Component {
               startAdornment: (
                 <InputAdornment position="start">$</InputAdornment>
               ),
+              endAdornment: (
+                <InputAdornment position="end">/hour</InputAdornment>
+              ),
             }}
+            required
+          />
+        </div>
+
+        <div style={{ marginTop: "1.5em" }}>
+          <TextField
+            id="total_hours"
+            style={{ width: "100%" }}
+            label="Total Hours"
+            variant="outlined"
+            onChange={this.handleChange("total_hours")}
+            error={isNaN(this.state.total_hours)}
+            value={
+              isNaN(this.state.total_hours) ? null : this.state.total_hours
+            }
             required
           />
         </div>
@@ -164,4 +184,4 @@ class KursConverter extends Component {
   }
 }
 
-export default KursConverter;
+export default HourConverter;
