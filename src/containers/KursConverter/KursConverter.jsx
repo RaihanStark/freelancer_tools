@@ -9,6 +9,10 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from "@material-ui/core";
 
 class KursConverter extends Component {
@@ -16,6 +20,7 @@ class KursConverter extends Component {
     amount: 0,
     kurs: 13800,
     receive: 0,
+    tax: 0,
     includeTax: false,
   };
 
@@ -30,16 +35,19 @@ class KursConverter extends Component {
   calculateHandler = () => {
     let amount = this.state.amount;
 
+    // Calculate Tax Upwork
     if (this.state.includeTax) {
       amount -= 0.99;
     }
 
-    console.log(amount);
+    // Calculate Tax
+    const taxAmount = this.state.tax / 100;
+    const afterTax = amount - amount * taxAmount;
 
-    const total = amount * this.state.kurs;
+    // Calculate Kurs
+    const total = afterTax * this.state.kurs;
 
-    console.log(total);
-    this.setState({ receive: total });
+    this.setState({ receive: total.toFixed(2) });
   };
   render() {
     return (
@@ -57,11 +65,13 @@ class KursConverter extends Component {
             </Typography>
             <div>
               <TextField
+                style={{ width: "100%" }}
                 id="amount"
                 label="Amount"
                 variant="outlined"
                 onChange={this.handleChange("amount")}
                 error={isNaN(this.state.amount)}
+                value={isNaN(this.state.amount) ? null : this.state.amount}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">$</InputAdornment>
@@ -78,7 +88,7 @@ class KursConverter extends Component {
                 variant="outlined"
                 onChange={this.handleChange("kurs")}
                 error={isNaN(this.state.kurs)}
-                value={this.state.kurs}
+                value={isNaN(this.state.kurs) ? null : this.state.kurs}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">Rp</InputAdornment>
@@ -87,6 +97,27 @@ class KursConverter extends Component {
                 required
               />
             </div>
+
+            <FormControl
+              variant="outlined"
+              style={{ marginTop: "1.5em", width: "100%" }}
+            >
+              <InputLabel id="demo-simple-select-outlined-label">
+                Tax
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="tax"
+                label="Tax"
+                value={this.state.tax}
+                onChange={this.handleChange("tax")}
+              >
+                <MenuItem value={0}>0%</MenuItem>
+                <MenuItem value={5}>5%</MenuItem>
+                <MenuItem value={10}>10%</MenuItem>
+                <MenuItem value={20}>20%</MenuItem>
+              </Select>
+            </FormControl>
 
             <div style={{ marginTop: ".5em" }}>
               <FormControlLabel
