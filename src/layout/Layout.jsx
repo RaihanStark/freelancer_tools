@@ -14,6 +14,7 @@ const Layout = (props) => {
         variant="extended"
         aria-label="like"
         className={classes.GithubStarButton}
+        href="https://github.com/RaihanStark/freelancer_tools"
       >
         <FavoriteIcon />
         +1 Star on Github

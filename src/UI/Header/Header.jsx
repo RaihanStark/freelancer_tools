@@ -28,7 +28,9 @@ const Header = () => {
         <Typography variant="h6" className={classes.title}>
           Freelancer Tools
         </Typography>
-        <Button color="inherit">Github</Button>
+        <Button color="inherit" href="https://github.com/RaihanStark">
+          Github
+        </Button>
       </Toolbar>
     </AppBar>
   );
