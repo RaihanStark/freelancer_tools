@@ -8,7 +8,13 @@ function App() {
   return (
     <Layout>
       <Container maxWidth="md">
-        <Grid container direction="row" justify="center" alignItems="center">
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          spacing={5}
+          style={{ marginTop: "1em" }}
+        >
           <Grid item sm={6}>
             <KursConverter />
           </Grid>
